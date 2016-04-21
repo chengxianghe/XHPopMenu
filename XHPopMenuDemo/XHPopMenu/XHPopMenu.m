@@ -8,13 +8,12 @@
 
 #import "XHPopMenu.h"
 
+#define kScreenW [UIScreen mainScreen].bounds.size.width
+#define kScreenH [UIScreen mainScreen].bounds.size.height
+
 @implementation XHPopMenuConfiguration
 
 + (XHPopMenuConfiguration *)defaultConfiguration {
-    //    static XHPopMenuConfiguration *defaultConfiguration = nil;
-    //    static dispatch_once_t onceToken;
-    //    dispatch_once(&onceToken, ^{
-    
     XHPopMenuConfiguration *defaultConfiguration = [[self alloc] init];
     defaultConfiguration.style = XHPopMenuAnimationStyleWeiXin;
     defaultConfiguration.arrowSize = 10; // 箭头大小
@@ -40,7 +39,6 @@
     defaultConfiguration.menuBackgroundColor = [UIColor colorWithWhite:0.2 alpha:1]; // 菜单的底色
     defaultConfiguration.maskBackgroundColor = [UIColor clearColor]; // 遮罩颜色
     defaultConfiguration.selectedColor = [UIColor colorWithWhite:0.5 alpha:0.8]; // menuItem选中颜色
-    //    });
     return defaultConfiguration;
 }
 
@@ -115,7 +113,6 @@
     XHPopMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[XHPopMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.iconImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         cell.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         cell.lineView = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -193,10 +190,6 @@
 }
 
 @end
-
-
-#define kScreenW [UIScreen mainScreen].bounds.size.width
-#define kScreenH [UIScreen mainScreen].bounds.size.height
 
 @interface XHPopMenuView : UIView <UITableViewDataSource,UITableViewDelegate>
 
@@ -292,12 +285,6 @@
         
         if (self.configuration.shadowOfMenu) {
             UIView *shadow = [[UIView alloc] init];
-            
-            // 这样不能同时满足圆角和阴影
-//            shadow.frame = tableFrame;
-//            shadow.layer.anchorPoint = anchorPoint;
-//            shadow.backgroundColor = [UIColor whiteColor];
-            
             shadow.backgroundColor = [UIColor clearColor];
             shadow.frame = CGRectMake(_startPoint.x, _startPoint.y + triangleHeight, 1, 1);
             if (!isDown) {
@@ -447,12 +434,7 @@
             [self dismissCompletion];
         }];
     } else if (style == XHPopMenuAnimationStyleNone) {
-//        self.alpha = 1;
-//        [UIView animateWithDuration:kDefaultAnimateDuration animations:^{
-//            self.alpha = 0;
-//        } completion:^(BOOL finished) {
-            [self dismissCompletion];
-//        }];
+        [self dismissCompletion];
     }
     
 }
