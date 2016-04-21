@@ -10,7 +10,7 @@ a menu like pop view
 
 ## Using CocoaPods
 ```objective-c
-pod 'XHPopMenu', '~> 1.0.0'
+    pod 'XHPopMenu', '~> 1.0.0'
 ```
 
 目前支持的自定义选项...
