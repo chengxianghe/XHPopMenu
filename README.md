@@ -9,8 +9,9 @@ a menu like pop view
 ![CocoaPods Version](https://img.shields.io/badge/pod-v0.36.4-brightgreen.svg)
 
 ## Using CocoaPods
-    pod 'XHPopMenu', '~> 1.0.0'
-
+```objective-c
+pod 'XHPopMenu', '~> 1.0.0'
+```
 
 目前支持的自定义选项...
 
