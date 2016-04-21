@@ -15,7 +15,7 @@
 		14B1AEC51CC8ADF200EFE42E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14B1AEBC1CC8ADF200EFE42E /* Info.plist */; };
 		14B1AEC61CC8ADF200EFE42E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1AEBD1CC8ADF200EFE42E /* main.m */; };
 		14B1AEC71CC8ADF200EFE42E /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1AEBF1CC8ADF200EFE42E /* SecondViewController.m */; };
-		14B1AECB1CC8AE3F00EFE42E /* XHPopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1AECA1CC8AE3F00EFE42E /* XHPopMenu.m */; };
+		14B1AECF1CC8B7F300EFE42E /* XHPopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1AECE1CC8B7F300EFE42E /* XHPopMenu.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +30,8 @@
 		14B1AEBD1CC8ADF200EFE42E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		14B1AEBE1CC8ADF200EFE42E /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
 		14B1AEBF1CC8ADF200EFE42E /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
-		14B1AEC91CC8AE3F00EFE42E /* XHPopMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHPopMenu.h; sourceTree = "<group>"; };
-		14B1AECA1CC8AE3F00EFE42E /* XHPopMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHPopMenu.m; sourceTree = "<group>"; };
+		14B1AECD1CC8B7F300EFE42E /* XHPopMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHPopMenu.h; sourceTree = "<group>"; };
+		14B1AECE1CC8B7F300EFE42E /* XHPopMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHPopMenu.m; sourceTree = "<group>"; };
 		14E06D611CB556EE00F74AC9 /* XHPopMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XHPopMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -49,7 +49,7 @@
 		14B1AEB21CC8ADF200EFE42E /* XHPopMenuDemo */ = {
 			isa = PBXGroup;
 			children = (
-				14B1AEC81CC8AE3F00EFE42E /* XHPopMenu */,
+				14B1AECC1CC8B7F300EFE42E /* XHPopMenu */,
 				14B1AEB31CC8ADF200EFE42E /* AppDelegate.h */,
 				14B1AEB41CC8ADF200EFE42E /* AppDelegate.m */,
 				14B1AEB51CC8ADF200EFE42E /* Assets.xcassets */,
@@ -65,11 +65,11 @@
 			path = XHPopMenuDemo;
 			sourceTree = "<group>";
 		};
-		14B1AEC81CC8AE3F00EFE42E /* XHPopMenu */ = {
+		14B1AECC1CC8B7F300EFE42E /* XHPopMenu */ = {
 			isa = PBXGroup;
 			children = (
-				14B1AEC91CC8AE3F00EFE42E /* XHPopMenu.h */,
-				14B1AECA1CC8AE3F00EFE42E /* XHPopMenu.m */,
+				14B1AECD1CC8B7F300EFE42E /* XHPopMenu.h */,
+				14B1AECE1CC8B7F300EFE42E /* XHPopMenu.m */,
 			);
 			path = XHPopMenu;
 			sourceTree = "<group>";
@@ -161,7 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14B1AECB1CC8AE3F00EFE42E /* XHPopMenu.m in Sources */,
+				14B1AECF1CC8B7F300EFE42E /* XHPopMenu.m in Sources */,
 				14B1AEC71CC8ADF200EFE42E /* SecondViewController.m in Sources */,
 				14B1AEC01CC8ADF200EFE42E /* AppDelegate.m in Sources */,
 				14B1AEC61CC8ADF200EFE42E /* main.m in Sources */,
