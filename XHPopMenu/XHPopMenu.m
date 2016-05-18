@@ -24,17 +24,17 @@
     defaultConfiguration.menuCornerRadius = 4; // 菜单圆角半径
     defaultConfiguration.menuScreenMinMargin = 10; // 菜单和屏幕最小间距
     defaultConfiguration.menuMaxHeight = 200; // 菜单最大高度
-    defaultConfiguration.seperatorInsetLeft = 10; // 分割线左侧Insets
-    defaultConfiguration.seperatorInsetRight = 10; // 分割线右侧Insets
-    defaultConfiguration.seperatorHeight = 1;
+    defaultConfiguration.separatorInsetLeft = 10; // 分割线左侧Insets
+    defaultConfiguration.separatorInsetRight = 10; // 分割线右侧Insets
+    defaultConfiguration.separatorHeight = 1;
     defaultConfiguration.fontSize = 15; // 字体大小
     defaultConfiguration.itemHeight = 40; // 单行高度
     defaultConfiguration.itemMaxWidth = 150; // 单行最大宽度（默认屏宽）
     defaultConfiguration.alignment = NSTextAlignmentLeft; // 文字对齐方式
     defaultConfiguration.shadowOfMenu = false; // 是否添加菜单阴影
-    defaultConfiguration.hasSeperatorLine = true; // 是否设置分割线
+    defaultConfiguration.hasSeparatorLine = true; // 是否设置分割线
     defaultConfiguration.titleColor = [UIColor whiteColor]; // menuItem字体颜色
-    defaultConfiguration.seperatorColor = [UIColor blackColor]; // 分割线颜色
+    defaultConfiguration.separatorColor = [UIColor blackColor]; // 分割线颜色
     defaultConfiguration.shadowColor = [UIColor blackColor]; // 阴影颜色
     defaultConfiguration.menuBackgroundColor = [UIColor colorWithWhite:0.2 alpha:1]; // 菜单的底色
     defaultConfiguration.maskBackgroundColor = [UIColor clearColor]; // 遮罩颜色
@@ -155,13 +155,13 @@
     CGFloat itemH = height - 2 * top;
     CGFloat itemW = width - 2 * left;
     
-    if (configuration.hasSeperatorLine) {
+    if (configuration.hasSeparatorLine) {
         self.lineView.hidden = false;
-        CGFloat insetL = configuration.seperatorInsetLeft;
-        CGFloat insetR = configuration.seperatorInsetRight;
-        CGFloat insetH = configuration.seperatorHeight;
+        CGFloat insetL = configuration.separatorInsetLeft;
+        CGFloat insetR = configuration.separatorInsetRight;
+        CGFloat insetH = configuration.separatorHeight;
         self.lineView.backgroundColor = [UIColor clearColor];
-        self.lineView.layer.backgroundColor = configuration.seperatorColor.CGColor;
+        self.lineView.layer.backgroundColor = configuration.separatorColor.CGColor;
         self.lineView.frame = CGRectMake(insetL, height - insetH, width - insetL - insetR, insetH);
     } else {
         self.lineView.hidden = true;

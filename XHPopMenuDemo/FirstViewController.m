@@ -83,12 +83,12 @@
     options.intervalSpacing     = 15; //MenuItemImage与MenuItemTitle的间距
     options.menuCornerRadius    = 3; //菜单圆角半径
     options.shadowOfMenu        = true; //是否添加菜单阴影
-    options.hasSeperatorLine    = true; //是否设置分割线
-    options.seperatorInsetLeft  = 10; //分割线左侧Insets
-    options.seperatorInsetRight = 0; //分割线右侧Insets
-    options.seperatorHeight     = 1.0 / [UIScreen mainScreen].scale;//分割线高度
+    options.hasSeparatorLine    = true; //是否设置分割线
+    options.separatorInsetLeft  = 10; //分割线左侧Insets
+    options.separatorInsetRight = 0; //分割线右侧Insets
+    options.separatorHeight     = 1.0 / [UIScreen mainScreen].scale;//分割线高度
     options.titleColor          = [UIColor redColor];//menuItem字体颜色
-    options.seperatorColor      = [UIColor whiteColor];//分割线颜色
+    options.separatorColor      = [UIColor whiteColor];//分割线颜色
     options.menuBackgroundColor = [UIColor colorWithWhite:0.8 alpha:1],//菜单的底色
     options.selectedColor       = [UIColor grayColor];// menuItem选中颜色
     

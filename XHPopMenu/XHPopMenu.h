@@ -50,18 +50,18 @@ static const CGFloat kDefaultAnimateDuration = 0.15;
 @property (nonatomic, assign) CGFloat menuCornerRadius; // 菜单圆角半径
 @property (nonatomic, assign) CGFloat menuScreenMinMargin; // 菜单和屏幕最小间距
 @property (nonatomic, assign) CGFloat menuMaxHeight; // 菜单最大高度
-@property (nonatomic, assign) CGFloat seperatorInsetLeft; // 分割线左侧Insets
-@property (nonatomic, assign) CGFloat seperatorInsetRight; // 分割线右侧Insets
-@property (nonatomic, assign) CGFloat seperatorHeight; // 分割线高度
+@property (nonatomic, assign) CGFloat separatorInsetLeft; // 分割线左侧Insets
+@property (nonatomic, assign) CGFloat separatorInsetRight; // 分割线右侧Insets
+@property (nonatomic, assign) CGFloat separatorHeight; // 分割线高度
 @property (nonatomic, assign) CGFloat fontSize; // 字体大小
 @property (nonatomic, assign) CGFloat itemHeight; // 单行高度
 @property (nonatomic, assign) CGFloat itemMaxWidth; // 单行最大宽度
 @property (nonatomic, assign) NSTextAlignment alignment; // 文字对齐方式
 @property (nonatomic, assign) Boolean shadowOfMenu; // 是否添加菜单阴影
-@property (nonatomic, assign) Boolean hasSeperatorLine; // 是否设置分割线
+@property (nonatomic, assign) Boolean hasSeparatorLine; // 是否设置分割线
 
 @property (nonatomic, strong) UIColor *titleColor; // menuItem字体颜色
-@property (nonatomic, strong) UIColor *seperatorColor; // 分割线颜色
+@property (nonatomic, strong) UIColor *separatorColor; // 分割线颜色
 @property (nonatomic, strong) UIColor *shadowColor; // 阴影颜色
 @property (nonatomic, strong) UIColor *menuBackgroundColor; // 菜单的底色
 @property (nonatomic, strong) UIColor *selectedColor; // menuItem选中颜色
