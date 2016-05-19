@@ -77,7 +77,6 @@
     if (_block) {
         _block(weakSelf);
     }
-    
     if (target && [target respondsToSelector:_action]) {
         [target performSelectorOnMainThread:_action withObject:weakSelf waitUntilDone:true];
     }
@@ -145,7 +144,6 @@
 }
 
 - (void)setInfo:(XHPopMenuItem *)item configuration:(XHPopMenuConfiguration *)configuration {
-    
     CGFloat margin = configuration.intervalSpacing;
     CGFloat left = configuration.marginXSpacing;
     CGFloat top = configuration.marginYSpacing;
@@ -184,7 +182,6 @@
     self.titleLabel.font = item.titleFont;
     self.titleLabel.textColor = item.titleColor;
     self.titleLabel.textAlignment = configuration.alignment;
-
     self.backgroundColor = configuration.menuBackgroundColor;
     self.selectedBackgroundView.backgroundColor = configuration.selectedColor;
 }
@@ -372,7 +369,6 @@
 }
 
 - (void)showMenuInView:(UIView *)view {
-    
     if (!view) {
         view = [UIApplication sharedApplication].keyWindow;
     }
@@ -399,12 +395,10 @@
             self.alpha = 1;
         } completion:^(BOOL finished) {
         }];
-
     }
 }
 
 - (void)dismissPopMenu {
-    
     XHPopMenuAnimationStyle style = _configuration.style;
     
     if (style == XHPopMenuAnimationStyleWeiXin) {
@@ -436,7 +430,6 @@
     } else if (style == XHPopMenuAnimationStyleNone) {
         [self dismissCompletion];
     }
-    
 }
 
 - (void)dismissCompletion {
@@ -449,7 +442,7 @@
 
 @interface XHPopMenu ()
 
-@property (nonatomic,strong) XHPopMenuView *popmenuView;
+@property (nonatomic, strong) XHPopMenuView *popmenuView;
 @property (nonatomic, assign) BOOL isObserving;
 
 @end
@@ -494,7 +487,6 @@
         [_popmenuView dismissPopMenu];
         _popmenuView = nil;
     }
-    
     if (!_isObserving) {
         _isObserving = true;
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -516,7 +508,6 @@
         [_popmenuView dismissPopMenu];
         _popmenuView = nil;
     }
-    
     if (_isObserving) {
         _isObserving = false;
         [[NSNotificationCenter defaultCenter] removeObserver:self];
