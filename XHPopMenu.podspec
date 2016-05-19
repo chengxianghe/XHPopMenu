@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "XHPopMenu"
-  s.version      = "1.0.5"
+  s.version      = "1.0.6"
   s.summary      = "A menu like a pop view."
 
   # This description is used to generate tags and improve search results.
@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/chengxianghe/XHPopMenu.git", :tag => "1.0.5" }
+  s.source       = { :git => "https://github.com/chengxianghe/XHPopMenu.git", :tag => "1.0.6" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
