@@ -10,46 +10,29 @@
 #import "XHPopMenu.h"
 
 @interface FirstViewController ()
-@property (nonatomic, strong) NSArray *dataArr;
+
 @property (nonatomic, strong) XHPopMenuItem *lastModel;
+@property (nonatomic, strong) NSMutableArray *dataArray;
+
 @end
 
 @implementation FirstViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-}
-
-- (NSArray *)dataArr{
-    if (!_dataArr) {
-        NSMutableArray *tempArr = [NSMutableArray array];
-        NSArray *titleArr = @[@"扫一扫",@"加好友",@"创建讨论组",@"发送到电脑",@"面对面快传",@"收钱"];
-        for (int i = 1; i < 7; i++) {
-            XHPopMenuItem *model = [[XHPopMenuItem alloc] initWithTitle:titleArr[i - 1] image:[UIImage imageNamed:[NSString stringWithFormat:@"menu_%d",i]] block:^(XHPopMenuItem *item) {
-                NSLog(@"block:%@",item);
-            }];
-            
-            [tempArr addObject:model];
-        }
-        _dataArr = [tempArr mutableCopy];
-        _lastModel = _dataArr.lastObject;
-    }
-    return _dataArr;
 }
 
 - (IBAction)leftItemClick:(UIButton *)sender {
 
     NSMutableArray *tempArr = [NSMutableArray array];
-    NSArray *titleArr = @[@"扫一扫",@"加好友",@"创建讨论组",@"发送到电脑",@"面对面快传",@"收钱"];
-    for (int i = 1; i < 7; i++) {
+    NSArray *titleArr = @[@"扫一扫", @"加好友", @"创建讨论组", @"发送到电脑", @"面对面快传", @"收钱"];
+    for (int i = 1; i < titleArr.count; i++) {
         XHPopMenuItem *model = [[XHPopMenuItem alloc] initWithTitle:titleArr[i - 1] image:[UIImage imageNamed:[NSString stringWithFormat:@"menu_%d",i]] block:^(XHPopMenuItem *item) {
             NSLog(@"block:%@",item);
         }];
         
         [tempArr addObject:model];
     }
-
     
     XHPopMenuConfiguration *options = [XHPopMenuConfiguration defaultConfiguration];
     options.style            = XHPopMenuAnimationStyleWeiXin;
@@ -63,17 +46,14 @@
     options.menuCornerRadius = 3;//菜单圆角半径
     options.titleColor       = [UIColor whiteColor];//menuItem字体颜色
 
-//    options.maskBackgroundColor = [UIColor colorWithRed:0.3 green:0.5 blue:0.1 alpha:0.2];//遮罩
-
-//    [XHPopMenu showMenuWithView:sender menuItems:tempArr withOptions:nil];
     [XHPopMenu showMenuWithView:sender menuItems:tempArr withOptions:options];
 
 }
 
-
 - (IBAction)onButtonClick:(UIButton *)sender {
     XHPopMenuConfiguration *options = [XHPopMenuConfiguration defaultConfiguration];
     options.style               = XHPopMenuAnimationStyleScale;
+    options.menuMaxHeight       = 240; // 菜单最大高度
     options.itemHeight          = 40;
     options.itemMaxWidth        = 140;
     options.arrowSize           = 15; //指示箭头大小
@@ -91,9 +71,8 @@
     options.separatorColor      = [UIColor whiteColor];//分割线颜色
     options.menuBackgroundColor = [UIColor colorWithWhite:0.8 alpha:1],//菜单的底色
     options.selectedColor       = [UIColor grayColor];// menuItem选中颜色
-    
 
-    [XHPopMenu showMenuInView:self.view withView:sender menuItems:self.dataArr withOptions:options];
+    [XHPopMenu showMenuInView:self.view withView:sender menuItems:self.dataArray withOptions:options];
 }
 - (IBAction)onSwich:(UISwitch *)sender {
     if (sender.on) {
@@ -105,6 +84,22 @@
 
 - (void)popMenuView:(XHPopMenu *)menu{
     NSLog(@"%@",menu);
+}
+
+- (NSMutableArray *)dataArray {
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+        NSArray *titleArr = @[@"扫一扫", @"加好友", @"创建讨论组", @"发送到电脑", @"面对面快传", @"收钱", @"扫一扫", @"加好友"];
+        for (int i = 1; i <= titleArr.count; i++) {
+            XHPopMenuItem *model = [[XHPopMenuItem alloc] initWithTitle:titleArr[i - 1] image:[UIImage imageNamed:[NSString stringWithFormat:@"menu_%d",i % 6 + 1]] block:^(XHPopMenuItem *item) {
+                NSLog(@"block:%@",item);
+            }];
+            [_dataArray addObject:model];
+        }
+        
+        self.lastModel = _dataArray.lastObject;
+    }
+    return _dataArray;
 }
 
 - (void)didReceiveMemoryWarning {
