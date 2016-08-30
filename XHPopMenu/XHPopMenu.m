@@ -11,34 +11,36 @@
 #define kScreenW [UIScreen mainScreen].bounds.size.width
 #define kScreenH [UIScreen mainScreen].bounds.size.height
 
+static const CGFloat kXHDefaultAnimateDuration = 0.15;
+
 @implementation XHPopMenuConfiguration
 
 + (XHPopMenuConfiguration *)defaultConfiguration {
     XHPopMenuConfiguration *defaultConfiguration = [[self alloc] init];
     defaultConfiguration.style = XHPopMenuAnimationStyleWeiXin;
-    defaultConfiguration.arrowSize = 10; // 箭头大小
-    defaultConfiguration.arrowMargin = 0; // 手动设置箭头和目标view的距离
-    defaultConfiguration.marginXSpacing = 10; // MenuItem左右边距
-    defaultConfiguration.marginYSpacing = 10; // MenuItem上下边距
-    defaultConfiguration.intervalSpacing = 10; // MenuItemImage与MenuItemTitle的间距
-    defaultConfiguration.menuCornerRadius = 4; // 菜单圆角半径
-    defaultConfiguration.menuScreenMinMargin = 10; // 菜单和屏幕最小间距
-    defaultConfiguration.menuMaxHeight = 200; // 菜单最大高度
-    defaultConfiguration.separatorInsetLeft = 10; // 分割线左侧Insets
-    defaultConfiguration.separatorInsetRight = 10; // 分割线右侧Insets
+    defaultConfiguration.arrowSize = 10;
+    defaultConfiguration.arrowMargin = 0;
+    defaultConfiguration.marginXSpacing = 10; 
+    defaultConfiguration.marginYSpacing = 10; 
+    defaultConfiguration.intervalSpacing = 10;
+    defaultConfiguration.menuCornerRadius = 4;
+    defaultConfiguration.menuScreenMinMargin = 10;
+    defaultConfiguration.menuMaxHeight = 200;
+    defaultConfiguration.separatorInsetLeft = 10; 
+    defaultConfiguration.separatorInsetRight = 10;
     defaultConfiguration.separatorHeight = 1;
-    defaultConfiguration.fontSize = 15; // 字体大小
-    defaultConfiguration.itemHeight = 40; // 单行高度
-    defaultConfiguration.itemMaxWidth = 150; // 单行最大宽度（默认屏宽）
-    defaultConfiguration.alignment = NSTextAlignmentLeft; // 文字对齐方式
-    defaultConfiguration.shadowOfMenu = false; // 是否添加菜单阴影
-    defaultConfiguration.hasSeparatorLine = true; // 是否设置分割线
-    defaultConfiguration.titleColor = [UIColor whiteColor]; // menuItem字体颜色
-    defaultConfiguration.separatorColor = [UIColor blackColor]; // 分割线颜色
-    defaultConfiguration.shadowColor = [UIColor blackColor]; // 阴影颜色
-    defaultConfiguration.menuBackgroundColor = [UIColor colorWithWhite:0.2 alpha:1]; // 菜单的底色
-    defaultConfiguration.maskBackgroundColor = [UIColor clearColor]; // 遮罩颜色
-    defaultConfiguration.selectedColor = [UIColor colorWithWhite:0.5 alpha:0.8]; // menuItem选中颜色
+    defaultConfiguration.fontSize = 15;
+    defaultConfiguration.itemHeight = 40;
+    defaultConfiguration.itemMaxWidth = 150;
+    defaultConfiguration.alignment = NSTextAlignmentLeft;
+    defaultConfiguration.shadowOfMenu = false;
+    defaultConfiguration.hasSeparatorLine = true;
+    defaultConfiguration.titleColor = [UIColor whiteColor];
+    defaultConfiguration.separatorColor = [UIColor blackColor];
+    defaultConfiguration.shadowColor = [UIColor blackColor];
+    defaultConfiguration.menuBackgroundColor = [UIColor colorWithWhite:0.2 alpha:1];
+    defaultConfiguration.maskBackgroundColor = [UIColor clearColor];
+    defaultConfiguration.selectedColor = [UIColor colorWithWhite:0.5 alpha:0.8];
     return defaultConfiguration;
 }
 
@@ -383,7 +385,7 @@
         self.tableView.transform = CGAffineTransformMakeScale(0.001, 0.001);
         self.shadowView.transform = CGAffineTransformMakeScale(0.001, 0.001);
         
-        [UIView animateWithDuration:kDefaultAnimateDuration animations:^{
+        [UIView animateWithDuration:kXHDefaultAnimateDuration animations:^{
             self.tableView.transform = CGAffineTransformIdentity;
             self.shadowView.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
@@ -391,7 +393,7 @@
 
     } else if (style == XHPopMenuAnimationStyleFade) {
         self.alpha = 0;
-        [UIView animateWithDuration:kDefaultAnimateDuration animations:^{
+        [UIView animateWithDuration:kXHDefaultAnimateDuration animations:^{
             self.alpha = 1;
         } completion:^(BOOL finished) {
         }];
@@ -403,7 +405,7 @@
     
     if (style == XHPopMenuAnimationStyleWeiXin) {
         self.alpha = 1;
-        [UIView animateWithDuration:kDefaultAnimateDuration animations:^{
+        [UIView animateWithDuration:kXHDefaultAnimateDuration animations:^{
             self.tableView.transform = CGAffineTransformMakeScale(0.6, 0.6);
             self.shadowView.transform = CGAffineTransformMakeScale(0.6, 0.6);
             self.alpha = 0;
@@ -413,7 +415,7 @@
         
     } else if (style == XHPopMenuAnimationStyleScale) {
         self.alpha = 1;
-        [UIView animateWithDuration:kDefaultAnimateDuration animations:^{
+        [UIView animateWithDuration:kXHDefaultAnimateDuration animations:^{
             self.tableView.transform = CGAffineTransformMakeScale(0.001, 0.001);
             self.shadowView.transform = CGAffineTransformMakeScale(0.001, 0.001);
             self.alpha = 0;
@@ -422,7 +424,7 @@
         }];
     } else if (style == XHPopMenuAnimationStyleFade) {
         self.alpha = 1;
-        [UIView animateWithDuration:kDefaultAnimateDuration animations:^{
+        [UIView animateWithDuration:kXHDefaultAnimateDuration animations:^{
             self.alpha = 0;
         } completion:^(BOOL finished) {
             [self dismissCompletion];

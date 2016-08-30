@@ -47,7 +47,6 @@
     options.titleColor       = [UIColor whiteColor];//menuItem字体颜色
 
     [XHPopMenu showMenuWithView:sender menuItems:tempArr withOptions:options];
-
 }
 
 - (IBAction)onButtonClick:(UIButton *)sender {
@@ -62,8 +61,8 @@
     options.marginYSpacing      = 9; //MenuItem上下边距
     options.intervalSpacing     = 15; //MenuItemImage与MenuItemTitle的间距
     options.menuCornerRadius    = 3; //菜单圆角半径
-    options.shadowOfMenu        = true; //是否添加菜单阴影
-    options.hasSeparatorLine    = true; //是否设置分割线
+    options.shadowOfMenu        = YES; //是否添加菜单阴影
+    options.hasSeparatorLine    = YES; //是否设置分割线
     options.separatorInsetLeft  = 10; //分割线左侧Insets
     options.separatorInsetRight = 0; //分割线右侧Insets
     options.separatorHeight     = 1.0 / [UIScreen mainScreen].scale;//分割线高度

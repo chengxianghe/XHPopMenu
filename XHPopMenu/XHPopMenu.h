@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class XHPopMenuView, XHPopMenuItem, XHPopMenuConfiguration;
 
-typedef void (^XHPopMenuItemAction)( XHPopMenuItem * __nullable item);
+typedef void (^XHPopMenuItemAction)(XHPopMenuItem * __nullable item);
 
 typedef NS_ENUM(NSUInteger, XHPopMenuAnimationStyle) {
     XHPopMenuAnimationStyleNone,
@@ -21,8 +21,6 @@ typedef NS_ENUM(NSUInteger, XHPopMenuAnimationStyle) {
     XHPopMenuAnimationStyleScale,
     XHPopMenuAnimationStyleWeiXin,
 };
-
-static const CGFloat kDefaultAnimateDuration = 0.15;
 
 @interface XHPopMenu : NSObject
 
