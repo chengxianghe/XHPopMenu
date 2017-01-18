@@ -24,15 +24,48 @@ typedef NS_ENUM(NSUInteger, XHPopMenuAnimationStyle) {
 
 @interface XHPopMenu : NSObject
 
+/**
+ 展示Menu(CGRect)
+ 
+ @param inView      容器View 默认KeyWindow
+ @param rect        触发者的rect(需根据容器View指定rect)
+ @param menuItems   items
+ @param options     设置
+ */
++ (void)showMenuInView:(UIView * __nullable)inView
+              withRect:(CGRect)rect
+             menuItems:(NSArray<__kindof XHPopMenuItem *> * __nonnull)menuItems
+           withOptions:(XHPopMenuConfiguration * __nullable)options;
+
+/**
+ 展示Menu
+
+ @param inView      容器View 默认KeyWindow
+ @param view        触发View
+ @param menuItems   items
+ @param options     设置
+ */
 + (void)showMenuInView:(UIView * __nullable)inView
               withView:(UIView * __nonnull)view
              menuItems:(NSArray<__kindof XHPopMenuItem *> * __nonnull)menuItems
            withOptions:(XHPopMenuConfiguration * __nullable)options;
 
+
+/**
+ 展示Menu
+
+ @param view        触发View
+ @param menuItems   items
+ @param options     设置
+ */
 + (void)showMenuWithView:(UIView * __nonnull)view
                menuItems:(NSArray<__kindof XHPopMenuItem *> * __nonnull)menuItems
              withOptions:(XHPopMenuConfiguration * __nullable)options;
 
+
+/**
+ 取消展示
+ */
 + (void)dismissMenu;
 
 @end

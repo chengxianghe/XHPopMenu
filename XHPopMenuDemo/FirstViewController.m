@@ -70,8 +70,7 @@
     // 设置遮罩底色
     options.maskBackgroundColor = [UIColor colorWithWhite:0.3 alpha:0.5];
 
-
-    [XHPopMenu showMenuWithView:sender menuItems:tempArr withOptions:options];
+    [XHPopMenu showMenuInView:self.tabBarController.view withView:sender menuItems:tempArr withOptions:options];
 }
 
 - (IBAction)onButtonClick:(UIButton *)sender {

@@ -127,6 +127,12 @@
                                     <action selector="onButtonClick:" destination="9pv-A4-QxB" eventType="touchUpInside" id="yMU-Jb-MGV"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="根据指定View显示" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M8f-k8-0Lc">
+                                <rect key="frame" x="26" y="174" width="323" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -137,12 +143,15 @@
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="9pe-34-d6x" secondAttribute="bottom" constant="9" id="8ar-hD-XAH"/>
                             <constraint firstItem="wgp-Hm-54w" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="20" id="97v-xW-yoF"/>
                             <constraint firstItem="vFB-rt-04u" firstAttribute="centerY" secondItem="boK-CR-yLL" secondAttribute="centerY" id="9Ug-FX-1NZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="M8f-k8-0Lc" secondAttribute="trailing" constant="10" id="Bc0-nL-93G"/>
                             <constraint firstItem="9pe-34-d6x" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="FJo-6H-aEm"/>
                             <constraint firstItem="v3k-ee-8th" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="K3c-zS-4Pi"/>
+                            <constraint firstItem="M8f-k8-0Lc" firstAttribute="top" secondItem="5jc-hN-gFP" secondAttribute="bottom" constant="60" id="KXX-se-R0r"/>
                             <constraint firstItem="9pe-34-d6x" firstAttribute="centerY" secondItem="boK-CR-yLL" secondAttribute="centerY" id="L4O-ub-Qq1"/>
                             <constraint firstItem="vFB-rt-04u" firstAttribute="centerX" secondItem="5jc-hN-gFP" secondAttribute="centerX" id="N8A-ql-ZLb"/>
                             <constraint firstItem="boK-CR-yLL" firstAttribute="centerX" secondItem="unC-is-rIv" secondAttribute="centerX" id="Ode-2e-6cz"/>
                             <constraint firstItem="sNi-nm-Qyz" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="OyK-Cf-dzc"/>
+                            <constraint firstItem="M8f-k8-0Lc" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="10" id="Prb-pi-K7C"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="J4z-La-yZz" secondAttribute="bottom" constant="88" id="VOk-Pc-TZW"/>
                             <constraint firstItem="YnA-NQ-WeY" firstAttribute="centerX" secondItem="unC-is-rIv" secondAttribute="centerX" id="X8F-b2-gIn"/>
                             <constraint firstItem="wgp-Hm-54w" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="dMt-ed-BQj"/>
@@ -191,29 +200,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="83" y="313" width="209.5" height="41.5"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="80" y="363" width="215" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2pX-6F-75B">
+                                <rect key="frame" x="20" y="114" width="240" height="128"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HxG-ou-TRg">
+                                        <rect key="frame" x="97" y="49" width="46" height="30"/>
+                                        <color key="backgroundColor" red="0.015686274510000001" green="0.87058823529999996" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onButtonClick:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="4hQ-kx-gJ4"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="HxG-ou-TRg" firstAttribute="centerX" secondItem="2pX-6F-75B" secondAttribute="centerX" id="Vc6-Vh-699"/>
+                                    <constraint firstItem="HxG-ou-TRg" firstAttribute="centerY" secondItem="2pX-6F-75B" secondAttribute="centerY" id="WBf-aQ-gOc"/>
+                                    <constraint firstAttribute="height" constant="128" id="cyW-Cn-Dd9"/>
+                                    <constraint firstAttribute="width" constant="240" id="jPB-8w-zWJ"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="根据指定CGRect区域显示" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fv-OP-Zjw">
+                                <rect key="frame" x="26" y="72" width="323" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
-                            <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
-                            <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
+                            <constraint firstItem="7fv-OP-Zjw" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" constant="10" id="Agr-TL-dTZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7fv-OP-Zjw" secondAttribute="trailing" constant="10" id="Isf-lp-n6u"/>
+                            <constraint firstItem="7fv-OP-Zjw" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="8" id="Tbp-0c-SCG"/>
+                            <constraint firstItem="2pX-6F-75B" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" constant="20" id="UBR-uI-X32"/>
+                            <constraint firstItem="2pX-6F-75B" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" constant="50" id="hrC-Fv-BSL"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Code" id="PnP-sz-rR6"/>
+                    <navigationItem key="navigationItem" title="Code" id="PnP-sz-rR6">
+                        <barButtonItem key="leftBarButtonItem" title="BarButtonItem" id="uzk-tJ-dDf">
+                            <connections>
+                                <action selector="onLeftBarButtonItemClick:" destination="8rJ-Kc-sve" id="zA1-k3-307"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="backView" destination="2pX-6F-75B" id="G5m-dJ-Ben"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>

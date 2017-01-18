@@ -204,110 +204,124 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 @end
 
 @implementation XHPopMenuView
-
-- (instancetype)initWithView:(UIView *)view menuItems:(NSArray<__kindof XHPopMenuItem *> *)menuItems options:(XHPopMenuConfiguration *)options {
+- (instancetype)initInView:(UIView *)inView withRect:(CGRect)rect menuItems:(NSArray<__kindof XHPopMenuItem *> *)menuItems options:(XHPopMenuConfiguration *)options {
     if (self = [super initWithFrame:[UIScreen mainScreen].bounds]) {
-        self.configuration = options;
-        self.menuItems = menuItems;
+        CGRect vFrame = rect;
+        CGPoint centerPoint = CGPointMake(CGRectGetMinX(vFrame) + vFrame.size.width / 2.0, CGRectGetMinY(vFrame) + vFrame.size.height / 2.0);
 
-        UIFont *itemFont = [UIFont systemFontOfSize:self.configuration.fontSize];
-        UIColor *itemTitleColor = self.configuration.titleColor;
-
-        [menuItems enumerateObjectsUsingBlock:^(__kindof XHPopMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (!obj.titleFont) {
-                obj.titleFont = itemFont;
-            }
-            if (!obj.titleColor) {
-                obj.titleColor = itemTitleColor;
-            }
-        }];
- 
-        self.backgroundColor = self.configuration.maskBackgroundColor;
-        
-        CGFloat itemHeight = self.configuration.itemHeight;
-        CGFloat menuWidth = self.configuration.itemMaxWidth;
-        CGFloat triangleHeight = self.configuration.arrowSize;
-        CGFloat triangleMargin = self.configuration.arrowMargin;
-        CGFloat menuScreenMinMargin = self.configuration.menuScreenMinMargin;
-        
-        CGRect vFrame = [view.superview convertRect:view.frame toView:[UIApplication sharedApplication].keyWindow];
-        
-        CGPoint centerPoint = view.center;
-        CGFloat tableViewH = itemHeight * menuItems.count;
-        BOOL isBounces = tableViewH > self.configuration.menuMaxHeight;
-        
-        if (isBounces) {
-            tableViewH = self.configuration.menuMaxHeight;
-        }
-        
-        BOOL isDown = tableViewH + triangleHeight + triangleMargin + CGRectGetMaxY(vFrame) < kScreenH;
-        
-        CGFloat triangleX = centerPoint.x;
-        CGFloat triangleY = isDown ? CGRectGetMaxY(vFrame) + triangleMargin : CGRectGetMinY(vFrame) - triangleMargin;
-        
-        CGFloat tableViewY = CGRectGetMaxY(vFrame) + triangleHeight + triangleMargin - 0.5 * tableViewH;
-        CGFloat tableViewX = triangleX - menuWidth * 0.5;
-        
-        
-        if (!isDown) {
-            tableViewY = triangleY - triangleHeight - tableViewH * 0.5;
-        }
-        
-        CGPoint anchorPoint = isDown ? CGPointMake(0.5f, 0.0f) :CGPointMake(0.5f, 1.0f);
-        
-        if (tableViewX < menuScreenMinMargin + menuWidth * 0.5) {
-            tableViewX = menuScreenMinMargin;
-            anchorPoint.x = (triangleX - tableViewX)/menuWidth;
-            tableViewX = triangleX - menuWidth * 0.5;
-            
-        } else if (tableViewX + menuWidth > kScreenW - menuScreenMinMargin){
-            tableViewX = kScreenW - menuScreenMinMargin - menuWidth;
-            anchorPoint.x = (triangleX - tableViewX)/menuWidth;
-            tableViewX = triangleX - menuWidth * 0.5;
-        }
-        
-        _startPoint = CGPointMake(triangleX, triangleY);
-        
-        CGRect tableFrame = CGRectMake(tableViewX, tableViewY, menuWidth, tableViewH);
-        
-        _tableView = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = self.configuration.menuBackgroundColor;
-        _tableView.layer.cornerRadius = self.configuration.menuCornerRadius;
-        _tableView.layer.masksToBounds = true;
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.bounces = isBounces;
-        _tableView.layer.anchorPoint = anchorPoint;
-        _tableView.rowHeight = itemHeight;
-        [self addSubview:_tableView];
-        
-        if (self.configuration.shadowOfMenu) {
-            UIView *shadow = [[UIView alloc] init];
-            shadow.backgroundColor = [UIColor clearColor];
-            shadow.frame = CGRectMake(_startPoint.x, _startPoint.y + triangleHeight, 1, 1);
-            if (!isDown) {
-                shadow.frame = CGRectMake(_startPoint.x, _startPoint.y - triangleHeight, 1, 1);
-            }
-            CGRect rect = CGRectMake(_startPoint.x -tableViewX - (anchorPoint.x+ 0.5) * menuWidth, _startPoint.y + triangleHeight - tableViewY - 0.5 *tableViewH, menuWidth, tableViewH);
-            if (!isDown) {
-                rect.origin.y = tableViewY + triangleHeight - _startPoint.y - 0.5 * tableViewH;
-            }
-            UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:self.configuration.menuCornerRadius];
-            shadow.layer.shadowPath = path.CGPath;
-            
-            shadow.layer.shadowOpacity = 0.8;
-            shadow.layer.shadowColor = _configuration.shadowColor.CGColor;
-            shadow.layer.shadowOffset = CGSizeMake(0, 1);
-            shadow.layer.shadowRadius = 5;
-            
-            _shadowView = shadow;
-            [self insertSubview:shadow belowSubview:_tableView];
-        }
-        
-        [self drawTriangleLayerIsDown:isDown];
+        [self setupWithFrame:vFrame centerPoint:centerPoint menuItems:menuItems options:options];
     }
     return self;
+}
+
+- (instancetype)initInView:(UIView *)inView withView:(UIView *)view menuItems:(NSArray<__kindof XHPopMenuItem *> *)menuItems options:(XHPopMenuConfiguration *)options {
+    if (self = [super initWithFrame:[UIScreen mainScreen].bounds]) {
+        CGRect vFrame = [view.superview convertRect:view.frame toView:inView];
+        CGPoint centerPoint = view.center;
+        
+        [self setupWithFrame:vFrame centerPoint:centerPoint menuItems:menuItems options:options];
+    }
+    return self;
+}
+
+- (void)setupWithFrame:(CGRect)vFrame centerPoint:(CGPoint)centerPoint menuItems:(NSArray<__kindof XHPopMenuItem *> *)menuItems options:(XHPopMenuConfiguration *)options {
+    self.configuration = options;
+    self.menuItems = menuItems;
+    
+    UIFont *itemFont = [UIFont systemFontOfSize:self.configuration.fontSize];
+    UIColor *itemTitleColor = self.configuration.titleColor;
+    
+    [menuItems enumerateObjectsUsingBlock:^(__kindof XHPopMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (!obj.titleFont) {
+            obj.titleFont = itemFont;
+        }
+        if (!obj.titleColor) {
+            obj.titleColor = itemTitleColor;
+        }
+    }];
+    
+    self.backgroundColor = self.configuration.maskBackgroundColor;
+    
+    CGFloat itemHeight = self.configuration.itemHeight;
+    CGFloat menuWidth = self.configuration.itemMaxWidth;
+    CGFloat triangleHeight = self.configuration.arrowSize;
+    CGFloat triangleMargin = self.configuration.arrowMargin;
+    CGFloat menuScreenMinMargin = self.configuration.menuScreenMinMargin;
+    
+    CGFloat tableViewH = itemHeight * menuItems.count;
+    BOOL isBounces = tableViewH > self.configuration.menuMaxHeight;
+    
+    if (isBounces) {
+        tableViewH = self.configuration.menuMaxHeight;
+    }
+    
+    BOOL isDown = tableViewH + triangleHeight + triangleMargin + CGRectGetMaxY(vFrame) < kScreenH;
+    
+    CGFloat triangleX = centerPoint.x;
+    CGFloat triangleY = isDown ? CGRectGetMaxY(vFrame) + triangleMargin : CGRectGetMinY(vFrame) - triangleMargin;
+    
+    CGFloat tableViewY = CGRectGetMaxY(vFrame) + triangleHeight + triangleMargin - 0.5 * tableViewH;
+    CGFloat tableViewX = triangleX - menuWidth * 0.5;
+    
+    
+    if (!isDown) {
+        tableViewY = triangleY - triangleHeight - tableViewH * 0.5;
+    }
+    
+    CGPoint anchorPoint = isDown ? CGPointMake(0.5f, 0.0f) :CGPointMake(0.5f, 1.0f);
+    
+    //fixed bug: tableViewX < menuScreenMinMargin + menuWidth * 0.5
+    if (tableViewX < menuScreenMinMargin) {
+        tableViewX = menuScreenMinMargin;
+        anchorPoint.x = (triangleX - tableViewX)/menuWidth;
+        tableViewX = triangleX - menuWidth * 0.5;
+        
+    } else if (tableViewX + menuWidth > kScreenW - menuScreenMinMargin){
+        tableViewX = kScreenW - menuScreenMinMargin - menuWidth;
+        anchorPoint.x = (triangleX - tableViewX)/menuWidth;
+        tableViewX = triangleX - menuWidth * 0.5;
+    }
+    
+    _startPoint = CGPointMake(triangleX, triangleY);
+    
+    CGRect tableFrame = CGRectMake(tableViewX, tableViewY, menuWidth, tableViewH);
+    
+    _tableView = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.backgroundColor = self.configuration.menuBackgroundColor;
+    _tableView.layer.cornerRadius = self.configuration.menuCornerRadius;
+    _tableView.layer.masksToBounds = true;
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.bounces = isBounces;
+    _tableView.layer.anchorPoint = anchorPoint;
+    _tableView.rowHeight = itemHeight;
+    [self addSubview:_tableView];
+    
+    if (self.configuration.shadowOfMenu) {
+        UIView *shadow = [[UIView alloc] init];
+        shadow.backgroundColor = [UIColor clearColor];
+        shadow.frame = CGRectMake(_startPoint.x, _startPoint.y + triangleHeight, 1, 1);
+        if (!isDown) {
+            shadow.frame = CGRectMake(_startPoint.x, _startPoint.y - triangleHeight, 1, 1);
+        }
+        CGRect rect = CGRectMake(_startPoint.x -tableViewX - (anchorPoint.x+ 0.5) * menuWidth, _startPoint.y + triangleHeight - tableViewY - 0.5 *tableViewH, menuWidth, tableViewH);
+        if (!isDown) {
+            rect.origin.y = tableViewY + triangleHeight - _startPoint.y - 0.5 * tableViewH;
+        }
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:self.configuration.menuCornerRadius];
+        shadow.layer.shadowPath = path.CGPath;
+        
+        shadow.layer.shadowOpacity = 0.8;
+        shadow.layer.shadowColor = _configuration.shadowColor.CGColor;
+        shadow.layer.shadowOffset = CGSizeMake(0, 1);
+        shadow.layer.shadowRadius = 5;
+        
+        _shadowView = shadow;
+        [self insertSubview:shadow belowSubview:_tableView];
+    }
+    
+    [self drawTriangleLayerIsDown:isDown];
 }
 
 - (void)drawTriangleLayerIsDown:(BOOL)isDown {
@@ -371,10 +385,6 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 }
 
 - (void)showMenuInView:(UIView *)view {
-    if (!view) {
-        view = [UIApplication sharedApplication].keyWindow;
-    }
-    
     [view addSubview:self];
     
     XHPopMenuAnimationStyle style = _configuration.style;
@@ -454,6 +464,13 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 @implementation XHPopMenu
 
 #pragma mark - public func
++ (void)showMenuInView:(UIView *)inView withRect:(CGRect)rect menuItems:(NSArray<__kindof XHPopMenuItem *> *)menuItems withOptions:(XHPopMenuConfiguration *)options {
+    if (options == nil) {
+        options = [XHPopMenuConfiguration defaultConfiguration];
+    }
+    [[self sharedManager] showMenuInView:inView withRect:rect menuItems:menuItems withOptions:options];
+}
+
 + (void)showMenuWithView:(UIView *)view menuItems:(NSArray<__kindof XHPopMenuItem *> *)menuItems withOptions:(XHPopMenuConfiguration *)options {
     [self showMenuInView:nil withView:view menuItems:menuItems withOptions:options];
 }
@@ -485,6 +502,26 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     }
 }
 
+- (void)showMenuInView:(UIView *)inView withRect:(CGRect)rect menuItems:(NSArray<__kindof XHPopMenuItem *> *)menuItems withOptions:(XHPopMenuConfiguration *)options {
+    
+    if (_popmenuView) {
+        [_popmenuView dismissPopMenu];
+        _popmenuView = nil;
+    }
+    if (!_isObserving) {
+        _isObserving = true;
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(orientationWillChange:)
+                                                     name:UIApplicationWillChangeStatusBarOrientationNotification
+                                                   object:nil];
+    }
+    if (!inView) {
+        inView = [UIApplication sharedApplication].keyWindow;
+    }
+    _popmenuView = [[XHPopMenuView alloc] initInView:inView withRect:rect menuItems:menuItems options:options];
+    [_popmenuView showMenuInView:inView];
+}
+
 - (void)showMenuInView:(UIView *)inView withView:(UIView *)view menuItems:(NSArray<__kindof XHPopMenuItem *> *)menuItems withOptions:(XHPopMenuConfiguration *)options {
     
     if (_popmenuView) {
@@ -498,8 +535,10 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
                                                      name:UIApplicationWillChangeStatusBarOrientationNotification
                                                    object:nil];
     }
-    
-    _popmenuView = [[XHPopMenuView alloc] initWithView:view menuItems:menuItems options:options];
+    if (!inView) {
+        inView = [UIApplication sharedApplication].keyWindow;
+    }
+    _popmenuView = [[XHPopMenuView alloc] initInView:inView withView:view menuItems:menuItems options:options];
     [_popmenuView showMenuInView:inView];
 }
 
