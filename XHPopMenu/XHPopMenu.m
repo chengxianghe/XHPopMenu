@@ -384,8 +384,10 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
         self.shadowView.transform = CGAffineTransformIdentity;
         self.tableView.transform = CGAffineTransformMakeScale(0.001, 0.001);
         self.shadowView.transform = CGAffineTransformMakeScale(0.001, 0.001);
-        
+        self.alpha = 0;
+
         [UIView animateWithDuration:kXHDefaultAnimateDuration animations:^{
+            self.alpha = 1;
             self.tableView.transform = CGAffineTransformIdentity;
             self.shadowView.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {

@@ -72,8 +72,8 @@ typedef NS_ENUM(NSUInteger, XHPopMenuAnimationStyle) {
 @interface XHPopMenuItem : NSObject
 
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) UIColor *titleColor;
-@property (nonatomic, strong) UIFont *titleFont;
+@property (nonatomic, strong) UIColor *titleColor; ///< menuItem字体颜色 优先级大于Configuration的设置
+@property (nonatomic, strong) UIFont *titleFont; ///< menuItem字体 优先级大于Configuration的设置
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, assign, readonly) SEL action;
 @property (nonatomic,   weak, readonly) id target;

@@ -12,7 +12,6 @@
 		14B1AEC21CC8ADF200EFE42E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B1AEB61CC8ADF200EFE42E /* LaunchScreen.storyboard */; };
 		14B1AEC31CC8ADF200EFE42E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B1AEB81CC8ADF200EFE42E /* Main.storyboard */; };
 		14B1AEC41CC8ADF200EFE42E /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1AEBB1CC8ADF200EFE42E /* FirstViewController.m */; };
-		14B1AEC51CC8ADF200EFE42E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14B1AEBC1CC8ADF200EFE42E /* Info.plist */; };
 		14B1AEC61CC8ADF200EFE42E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1AEBD1CC8ADF200EFE42E /* main.m */; };
 		14B1AEC71CC8ADF200EFE42E /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1AEBF1CC8ADF200EFE42E /* SecondViewController.m */; };
 		14B1AED31CC8C5E200EFE42E /* XHPopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1AED21CC8C5E200EFE42E /* XHPopMenu.m */; };
@@ -116,7 +115,7 @@
 		14E06D591CB556EE00F74AC9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = cn;
 				TargetAttributes = {
 					14E06D601CB556EE00F74AC9 = {
@@ -147,7 +146,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14B1AEC51CC8ADF200EFE42E /* Info.plist in Resources */,
 				14B1AEC31CC8ADF200EFE42E /* Main.storyboard in Resources */,
 				14B1AEC11CC8ADF200EFE42E /* Assets.xcassets in Resources */,
 				14B1AEC21CC8ADF200EFE42E /* LaunchScreen.storyboard in Resources */,
@@ -205,8 +203,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -228,7 +228,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -249,8 +249,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -266,7 +268,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -278,7 +280,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/XHPopMenuDemo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cxh.XHPopMenu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -290,7 +292,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/XHPopMenuDemo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cxh.XHPopMenu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
