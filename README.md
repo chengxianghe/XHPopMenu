@@ -8,6 +8,16 @@ a menu like pop view
 )](http://mit-license.org)
 ![CocoaPods Version](https://img.shields.io/badge/pod-v0.36.4-brightgreen.svg)
 
+
+===
+
+- 使用 Objective-C. 
+- 支持 ARC 和 CocoaPods 
+- iOS 7.0+, Swift 3.0+
+- 编译环境 Xcode 8.2
+
+===
+
 ### Using CocoaPods
     pod 'XHPopMenu'
 
