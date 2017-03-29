@@ -24,7 +24,8 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     defaultConfiguration.marginYSpacing = 10; 
     defaultConfiguration.intervalSpacing = 10;
     defaultConfiguration.menuCornerRadius = 4;
-    defaultConfiguration.menuScreenMinMargin = 10;
+    defaultConfiguration.menuScreenMinLeftRightMargin = 10;
+    defaultConfiguration.menuScreenMinBottomMargin = 10;
     defaultConfiguration.menuMaxHeight = 200;
     defaultConfiguration.separatorInsetLeft = 10; 
     defaultConfiguration.separatorInsetRight = 10;
@@ -246,7 +247,7 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     CGFloat menuWidth = self.configuration.itemMaxWidth;
     CGFloat triangleHeight = self.configuration.arrowSize;
     CGFloat triangleMargin = self.configuration.arrowMargin;
-    CGFloat menuScreenMinMargin = self.configuration.menuScreenMinMargin;
+    CGFloat menuScreenLeftRightMinMargin = self.configuration.menuScreenMinLeftRightMargin;
     
     CGFloat tableViewH = itemHeight * menuItems.count;
     BOOL isBounces = tableViewH > self.configuration.menuMaxHeight;
@@ -255,7 +256,7 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
         tableViewH = self.configuration.menuMaxHeight;
     }
     
-    BOOL isDown = tableViewH + triangleHeight + triangleMargin + CGRectGetMaxY(vFrame) < kScreenH;
+    BOOL isDown = tableViewH + triangleHeight + triangleMargin + CGRectGetMaxY(vFrame) < kScreenH - self.configuration.menuScreenMinBottomMargin;
     
     CGFloat triangleX = centerPoint.x;
     CGFloat triangleY = isDown ? CGRectGetMaxY(vFrame) + triangleMargin : CGRectGetMinY(vFrame) - triangleMargin;
@@ -270,14 +271,14 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     
     CGPoint anchorPoint = isDown ? CGPointMake(0.5f, 0.0f) :CGPointMake(0.5f, 1.0f);
     
-    //fixed bug: tableViewX < menuScreenMinMargin + menuWidth * 0.5
-    if (tableViewX < menuScreenMinMargin) {
-        tableViewX = menuScreenMinMargin;
+    //fixed bug: tableViewX < menuScreenLeftRightMinMargin + menuWidth * 0.5
+    if (tableViewX < menuScreenLeftRightMinMargin) {
+        tableViewX = menuScreenLeftRightMinMargin;
         anchorPoint.x = (triangleX - tableViewX)/menuWidth;
         tableViewX = triangleX - menuWidth * 0.5;
         
-    } else if (tableViewX + menuWidth > kScreenW - menuScreenMinMargin){
-        tableViewX = kScreenW - menuScreenMinMargin - menuWidth;
+    } else if (tableViewX + menuWidth > kScreenW - menuScreenLeftRightMinMargin){
+        tableViewX = kScreenW - menuScreenLeftRightMinMargin - menuWidth;
         anchorPoint.x = (triangleX - tableViewX)/menuWidth;
         tableViewX = triangleX - menuWidth * 0.5;
     }

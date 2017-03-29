@@ -120,6 +120,7 @@
 				TargetAttributes = {
 					14E06D601CB556EE00F74AC9 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 23ZQ26R8J4;
 					};
 				};
 			};
@@ -279,7 +280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 23ZQ26R8J4;
 				INFOPLIST_FILE = "$(SRCROOT)/XHPopMenuDemo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -292,7 +293,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 23ZQ26R8J4;
 				INFOPLIST_FILE = "$(SRCROOT)/XHPopMenuDemo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
