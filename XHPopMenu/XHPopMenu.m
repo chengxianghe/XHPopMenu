@@ -469,6 +469,13 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     if (options == nil) {
         options = [XHPopMenuConfiguration defaultConfiguration];
     }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    if (options.menuScreenMinLeftRightMargin == 10 && options.menuScreenMinMargin != 0) {
+        options.menuScreenMinLeftRightMargin = options.menuScreenMinMargin;
+    }
+#pragma clang diagnostic pop
+
     [[self sharedManager] showMenuInView:inView withRect:rect menuItems:menuItems withOptions:options];
 }
 
@@ -480,6 +487,13 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     if (options == nil) {
         options = [XHPopMenuConfiguration defaultConfiguration];
     }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    if (options.menuScreenMinLeftRightMargin == 10 && options.menuScreenMinMargin != 0) {
+        options.menuScreenMinLeftRightMargin = options.menuScreenMinMargin;
+    }
+#pragma clang diagnostic pop
+    
     [[self sharedManager] showMenuInView:inView withView:view menuItems:menuItems withOptions:options];
 }
 
