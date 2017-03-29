@@ -77,7 +77,8 @@ typedef NS_ENUM(NSUInteger, XHPopMenuAnimationStyle) {
 @property (nonatomic, assign) CGFloat arrowSize; ///< 箭头大小
 @property (nonatomic, assign) CGFloat arrowMargin; ///< 手动设置箭头和目标view的距离
 @property (nonatomic, assign) CGFloat menuCornerRadius; ///< 菜单圆角半径
-@property (nonatomic, assign) CGFloat menuScreenMinMargin NS_DEPRECATED_IOS(2_0, 3_0,"此方法已经被弃用，请用menuScreenMinLeftRightMargin属性"); ///< 菜单和屏幕左右的最小间距
+@property (nonatomic, assign) CGFloat menuScreenMinMargin
+NS_DEPRECATED_IOS(2_0, 3_0,"此方法已经被弃用，请用menuScreenMinLeftRightMargin属性"); ///< 菜单和屏幕左右的最小间距
 @property (nonatomic, assign) CGFloat menuScreenMinLeftRightMargin; ///< 菜单和屏幕左右的最小间距
 @property (nonatomic, assign) CGFloat menuScreenMinBottomMargin; ///< 菜单和屏幕底部的最小间距
 @property (nonatomic, assign) CGFloat menuMaxHeight; ///< 菜单最大高度
