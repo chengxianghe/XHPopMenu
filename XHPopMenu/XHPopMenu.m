@@ -20,14 +20,14 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     defaultConfiguration.style = XHPopMenuAnimationStyleWeiXin;
     defaultConfiguration.arrowSize = 10;
     defaultConfiguration.arrowMargin = 0;
-    defaultConfiguration.marginXSpacing = 10; 
-    defaultConfiguration.marginYSpacing = 10; 
+    defaultConfiguration.marginXSpacing = 10;
+    defaultConfiguration.marginYSpacing = 10;
     defaultConfiguration.intervalSpacing = 10;
     defaultConfiguration.menuCornerRadius = 4;
     defaultConfiguration.menuScreenMinLeftRightMargin = 10;
     defaultConfiguration.menuScreenMinBottomMargin = 10;
     defaultConfiguration.menuMaxHeight = 200;
-    defaultConfiguration.separatorInsetLeft = 10; 
+    defaultConfiguration.separatorInsetLeft = 10;
     defaultConfiguration.separatorInsetRight = 10;
     defaultConfiguration.separatorHeight = 1;
     defaultConfiguration.fontSize = 15;
@@ -37,11 +37,12 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     defaultConfiguration.shadowOfMenu = false;
     defaultConfiguration.hasSeparatorLine = true;
     defaultConfiguration.dismissWhenRotationScreen = false;
+    defaultConfiguration.revisedMaskWhenRotationScreen = false;
     defaultConfiguration.titleColor = [UIColor whiteColor];
     defaultConfiguration.separatorColor = [UIColor blackColor];
     defaultConfiguration.shadowColor = [UIColor blackColor];
     defaultConfiguration.menuBackgroundColor = [UIColor colorWithWhite:0.2 alpha:1];
-    defaultConfiguration.maskBackgroundColor = [UIColor colorWithWhite:0.3 alpha:0.6];
+    defaultConfiguration.maskBackgroundColor = [UIColor clearColor];
     defaultConfiguration.selectedColor = [UIColor colorWithWhite:0.5 alpha:0.8];
     return defaultConfiguration;
 }
@@ -126,7 +127,7 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
         
         cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
         cell.selectedBackgroundView.layer.cornerRadius = 2;
-
+        
         cell.contentView.backgroundColor = [UIColor clearColor];
     }
     return cell;
@@ -134,12 +135,12 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-
+    
     CGFloat yMargin = 1;
     CGFloat xMargin = 2;
     CGFloat insetH = CGRectGetHeight(self.lineView.frame);
@@ -153,7 +154,7 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     CGFloat top = configuration.marginYSpacing;
     CGFloat height = configuration.itemHeight;
     CGFloat width = configuration.itemMaxWidth;
-
+    
     CGFloat itemH = height - 2 * top;
     CGFloat itemW = width - 2 * left;
     
@@ -174,7 +175,7 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
         self.iconImageView.image = item.image;
         self.iconImageView.frame = CGRectMake(left, top, itemH, itemH);
         CGFloat labelX = CGRectGetMaxX(self.iconImageView.frame) + margin;
-
+        
         self.titleLabel.frame = CGRectMake(labelX, top, width - labelX - left, itemH);
         
     } else {
@@ -203,7 +204,6 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 @property (nonatomic,   weak, readonly) UIView *targetView;
 @property (nonatomic,   weak, readonly) UIView *inView;
 @property (nonatomic, assign, readonly) CGRect targetRect;
-@property (nonatomic, assign) BOOL needExchange;
 
 - (void)dismissPopMenu;
 
@@ -211,12 +211,13 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 
 @implementation XHPopMenuView
 
-- (void)dealloc {
-    NSLog(@"%s", __func__);
-}
-
 - (instancetype)initInView:(UIView *)inView withRect:(CGRect)rect menuItems:(NSArray<__kindof XHPopMenuItem *> *)menuItems options:(XHPopMenuConfiguration *)options {
-    if (self = [super initWithFrame:[UIScreen mainScreen].bounds]) {
+    CGRect frame = [UIScreen mainScreen].bounds;
+    if (options.revisedMaskWhenRotationScreen) {
+        CGFloat max = MAX(frame.size.width, frame.size.height);
+        frame.size = CGSizeMake(max, max);
+    }
+    if (self = [super initWithFrame:frame]) {
         CGRect vFrame = rect;
         CGPoint centerPoint = CGPointMake(CGRectGetMinX(vFrame) + vFrame.size.width / 2.0, CGRectGetMinY(vFrame) + vFrame.size.height / 2.0);
         _targetRect = rect;
@@ -227,7 +228,12 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 }
 
 - (instancetype)initInView:(UIView *)inView withView:(UIView *)view menuItems:(NSArray<__kindof XHPopMenuItem *> *)menuItems options:(XHPopMenuConfiguration *)options {
-    if (self = [super initWithFrame:[UIScreen mainScreen].bounds]) {
+    CGRect frame = [UIScreen mainScreen].bounds;
+    if (options.revisedMaskWhenRotationScreen) {
+        CGFloat max = MAX(frame.size.width, frame.size.height);
+        frame.size = CGSizeMake(max, max);
+    }
+    if (self = [super initWithFrame:frame]) {
         CGRect vFrame = [view.superview convertRect:view.frame toView:inView];
         CGPoint centerPoint = CGPointMake(CGRectGetMinX(vFrame) + vFrame.size.width / 2.0, CGRectGetMinY(vFrame) + vFrame.size.height / 2.0);
         _targetView = view;
@@ -267,7 +273,7 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     if (isBounces) {
         tableViewH = self.configuration.menuMaxHeight;
     }
-
+    
     BOOL isDown = tableViewH + triangleHeight + triangleMargin + CGRectGetMaxY(vFrame) < kScreenH - self.configuration.menuScreenMinBottomMargin;
     
     CGFloat triangleX = centerPoint.x;
@@ -382,6 +388,10 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.configuration.cellForRowConfig) {
+        return self.configuration.cellForRowConfig(tableView, indexPath, self.configuration, self.menuItems[indexPath.row]);
+    }
+    
     XHPopMenuTableViewCell *cell = [XHPopMenuTableViewCell cellWithTableView:tableView];
     XHPopMenuItem *item = self.menuItems[indexPath.row];
     [cell setInfo:item configuration:self.configuration];
@@ -412,14 +422,14 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
         self.tableView.transform = CGAffineTransformMakeScale(0.001, 0.001);
         self.shadowView.transform = CGAffineTransformMakeScale(0.001, 0.001);
         self.alpha = 0;
-
+        
         [UIView animateWithDuration:kXHDefaultAnimateDuration animations:^{
             self.alpha = 1;
             self.tableView.transform = CGAffineTransformIdentity;
             self.shadowView.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
         }];
-
+        
     } else if (style == XHPopMenuAnimationStyleFade) {
         self.alpha = 0;
         [UIView animateWithDuration:kXHDefaultAnimateDuration animations:^{
@@ -568,13 +578,13 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 
 - (void)orientationDidChange:(NSNotification *)note {
     XHPopMenuConfiguration *options = _popmenuView.configuration;
-
+    
     if (options.dismissWhenRotationScreen) {
         [self dismissMenu];
     } else {
         NSArray<__kindof XHPopMenuItem *> *menuItems = _popmenuView.menuItems;
         UIView *inView = _popmenuView.inView;
-
+        
         if (_popmenuView.targetView) {
             UIView *withView = _popmenuView.targetView;
             [self dismissMenuAnimation:NO];

@@ -15,6 +15,8 @@
 		14B1AEC61CC8ADF200EFE42E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1AEBD1CC8ADF200EFE42E /* main.m */; };
 		14B1AEC71CC8ADF200EFE42E /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1AEBF1CC8ADF200EFE42E /* SecondViewController.m */; };
 		14B1AED31CC8C5E200EFE42E /* XHPopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1AED21CC8C5E200EFE42E /* XHPopMenu.m */; };
+		14BF3B071EC9B97A00AC7219 /* TestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BF3B051EC9B97A00AC7219 /* TestCell.m */; };
+		14BF3B081EC9B97A00AC7219 /* TestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14BF3B061EC9B97A00AC7219 /* TestCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,9 @@
 		14B1AEBF1CC8ADF200EFE42E /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		14B1AED11CC8C5E200EFE42E /* XHPopMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHPopMenu.h; sourceTree = "<group>"; };
 		14B1AED21CC8C5E200EFE42E /* XHPopMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHPopMenu.m; sourceTree = "<group>"; };
+		14BF3B041EC9B97A00AC7219 /* TestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCell.h; sourceTree = "<group>"; };
+		14BF3B051EC9B97A00AC7219 /* TestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCell.m; sourceTree = "<group>"; };
+		14BF3B061EC9B97A00AC7219 /* TestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestCell.xib; sourceTree = "<group>"; };
 		14E06D611CB556EE00F74AC9 /* XHPopMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XHPopMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -51,15 +56,18 @@
 				14B1AED01CC8C5E200EFE42E /* XHPopMenu */,
 				14B1AEB31CC8ADF200EFE42E /* AppDelegate.h */,
 				14B1AEB41CC8ADF200EFE42E /* AppDelegate.m */,
-				14B1AEB51CC8ADF200EFE42E /* Assets.xcassets */,
-				14B1AEB61CC8ADF200EFE42E /* LaunchScreen.storyboard */,
-				14B1AEB81CC8ADF200EFE42E /* Main.storyboard */,
 				14B1AEBA1CC8ADF200EFE42E /* FirstViewController.h */,
 				14B1AEBB1CC8ADF200EFE42E /* FirstViewController.m */,
-				14B1AEBC1CC8ADF200EFE42E /* Info.plist */,
-				14B1AEBD1CC8ADF200EFE42E /* main.m */,
 				14B1AEBE1CC8ADF200EFE42E /* SecondViewController.h */,
 				14B1AEBF1CC8ADF200EFE42E /* SecondViewController.m */,
+				14BF3B041EC9B97A00AC7219 /* TestCell.h */,
+				14BF3B051EC9B97A00AC7219 /* TestCell.m */,
+				14BF3B061EC9B97A00AC7219 /* TestCell.xib */,
+				14B1AEB61CC8ADF200EFE42E /* LaunchScreen.storyboard */,
+				14B1AEB81CC8ADF200EFE42E /* Main.storyboard */,
+				14B1AEB51CC8ADF200EFE42E /* Assets.xcassets */,
+				14B1AEBC1CC8ADF200EFE42E /* Info.plist */,
+				14B1AEBD1CC8ADF200EFE42E /* main.m */,
 			);
 			path = XHPopMenuDemo;
 			sourceTree = "<group>";
@@ -148,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14B1AEC31CC8ADF200EFE42E /* Main.storyboard in Resources */,
+				14BF3B081EC9B97A00AC7219 /* TestCell.xib in Resources */,
 				14B1AEC11CC8ADF200EFE42E /* Assets.xcassets in Resources */,
 				14B1AEC21CC8ADF200EFE42E /* LaunchScreen.storyboard in Resources */,
 			);
@@ -161,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14B1AED31CC8C5E200EFE42E /* XHPopMenu.m in Sources */,
+				14BF3B071EC9B97A00AC7219 /* TestCell.m in Sources */,
 				14B1AEC71CC8ADF200EFE42E /* SecondViewController.m in Sources */,
 				14B1AEC01CC8ADF200EFE42E /* AppDelegate.m in Sources */,
 				14B1AEC61CC8ADF200EFE42E /* main.m in Sources */,

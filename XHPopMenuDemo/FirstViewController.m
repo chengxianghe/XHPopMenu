@@ -8,6 +8,7 @@
 
 #import "FirstViewController.h"
 #import "XHPopMenu.h"
+#import "TestCell.h"
 
 @interface FirstViewController ()
 
@@ -44,7 +45,8 @@
 }
 
 - (IBAction)onRightButtonClick:(UIButton *)sender {
-
+    // 自定义cell
+    
     NSMutableArray *tempArr = [NSMutableArray array];
     NSArray *titleArr = @[@"扫一扫", @"加好友", @"创建讨论组", @"发送到电脑", @"面对面快传", @"收钱"];
     for (int i = 1; i < titleArr.count; i++) {
@@ -66,10 +68,22 @@
     options.arrowMargin      = 10;//手动设置箭头和目标view的距离
     options.menuCornerRadius = 3;//菜单圆角半径
     options.titleColor       = [UIColor whiteColor];//menuItem字体颜色
-
+    
     // 设置遮罩底色
     options.maskBackgroundColor = [UIColor colorWithWhite:0.3 alpha:0.5];
-
+    
+    // 自定义cell
+    options.cellForRowConfig = ^UITableViewCell * _Nonnull(UITableView * _Nonnull tableView, NSIndexPath * _Nonnull indexPath, XHPopMenuConfiguration * _Nonnull option, XHPopMenuItem * _Nonnull item) {
+        static NSString *cellId = @"TestCell";
+        TestCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!cell) {
+            cell = [[NSBundle mainBundle] loadNibNamed:@"TestCell" owner:nil options:nil].firstObject;
+        }
+        [cell setInfo:item configuration:option];
+        return cell;
+    };
+    
+    
     [XHPopMenu showMenuInView:self.tabBarController.view withView:sender menuItems:tempArr withOptions:options];
 }
 
@@ -97,13 +111,13 @@
     
     // 设置menu距离屏幕左右两边的最小间距
     options.menuScreenMinLeftRightMargin = 10;
-
+    
     // 设置menu距离屏幕底部的最小间距
     options.menuScreenMinBottomMargin = 49;
     
     // 新增方法 设置自动转屏不消失
     options.dismissWhenRotationScreen = false;
-
+    
     [XHPopMenu showMenuInView:self.view withView:sender menuItems:self.dataArray withOptions:options];
 }
 
