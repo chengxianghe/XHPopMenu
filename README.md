@@ -15,6 +15,9 @@ a menu like pop view
 - 支持 ARC 和 CocoaPods 
 - iOS 7.0+, Swift 3.0+
 - 编译环境 Xcode 8.2
+- 支持自定义cell
+- 支持屏幕旋转适配
+
 ------
 
 ### Using CocoaPods
@@ -29,15 +32,15 @@ a menu like pop view
 @property (nonatomic, assign) CGFloat arrowSize; ///< 箭头大小
 @property (nonatomic, assign) CGFloat arrowMargin; ///< 手动设置箭头和目标view的距离
 @property (nonatomic, assign) CGFloat menuCornerRadius; ///< 菜单圆角半径
-@property (nonatomic, assign) CGFloat menuScreenMinMargin 
-NS_DEPRECATED_IOS(2_0, 3_0,"此方法已经被弃用，请用menuScreenMinLeftRightMargin属性"); ///< 菜单和屏幕左右的最小间距
 @property (nonatomic, assign) CGFloat menuScreenMinLeftRightMargin; ///< 菜单和屏幕左右的最小间距
 @property (nonatomic, assign) CGFloat menuScreenMinBottomMargin; ///< 菜单和屏幕底部的最小间距
 @property (nonatomic, assign) CGFloat menuMaxHeight; ///< 菜单最大高度
-@property (nonatomic, assign) BOOL shadowOfMenu; ///< 是否添加菜单阴影
-@property (nonatomic, strong) UIColor *shadowColor; ///< 阴影颜色
-@property (nonatomic, strong) UIColor *menuBackgroundColor; ///< 菜单的底色
-@property (nonatomic, strong) UIColor *maskBackgroundColor; ///< 遮罩颜色
+@property (nonatomic, assign) BOOL shadowOfMenu; ///< default:false 是否添加菜单阴影
+@property (nonatomic, strong, nullable) UIColor *shadowColor; ///< 阴影颜色
+@property (nonatomic, strong, nullable) UIColor *menuBackgroundColor; ///< 菜单的底色
+@property (nonatomic, strong, nullable) UIColor *maskBackgroundColor; ///< 遮罩颜色
+@property (nonatomic, assign) BOOL dismissWhenRotationScreen; ///< default:true 旋转屏幕时自动消失 注：false的时候会调用inView的layoutIfNeeded
+@property (nonatomic, assign) BOOL revisedMaskWhenRotationScreen; ///< default:false 旋转屏幕过程中，如果设置了mask颜色，会有一块白色的区域闪现，这个属性为true时，在设置蒙层的时候直接宽高都为屏幕宽高中的最大值
 
 // MenuItem设置
 @property (nonatomic, assign) CGFloat marginXSpacing; ///< MenuItem左右边距
@@ -50,10 +53,13 @@ NS_DEPRECATED_IOS(2_0, 3_0,"此方法已经被弃用，请用menuScreenMinLeftRi
 @property (nonatomic, assign) CGFloat itemHeight; ///< 单行高度
 @property (nonatomic, assign) CGFloat itemMaxWidth; ///< 单行最大宽度
 @property (nonatomic, assign) NSTextAlignment alignment; ///< 文字对齐方式
-@property (nonatomic, assign) BOOL hasSeparatorLine; ///< 是否设置分割线
-@property (nonatomic, strong) UIColor *titleColor; ///< MenuItem字体颜色
-@property (nonatomic, strong) UIColor *separatorColor; ///< 分割线颜色
-@property (nonatomic, strong) UIColor *selectedColor; ///< menuItem选中颜色
+@property (nonatomic, assign) BOOL hasSeparatorLine; ///< default:true 是否设置分割线
+@property (nonatomic, strong, nullable) UIColor *titleColor; ///< MenuItem字体颜色
+@property (nonatomic, strong, nullable) UIColor *separatorColor; ///< 分割线颜色
+@property (nonatomic, strong, nullable) UIColor *selectedColor; ///< menuItem选中颜色
+
+// Menu Cell 自定义
+@property (nonatomic,   copy, nullable) XHPopMenuCellConfig cellForRowConfig; ///< MenuCell 自定义，需要自行匹配 MenuItem 的各项配置
 
 ```
 
