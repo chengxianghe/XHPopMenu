@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "XHPopMenu"
-  s.version      = "1.0.10"
+  s.version      = "1.0.11"
   s.summary      = "A menu like a pop view."
 
   # This description is used to generate tags and improve search results.
