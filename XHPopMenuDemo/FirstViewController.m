@@ -66,7 +66,7 @@
     options.arrowMargin      = 10;//手动设置箭头和目标view的距离
     options.menuCornerRadius = 3;//菜单圆角半径
     options.titleColor       = [UIColor whiteColor];//menuItem字体颜色
-    
+
     // 设置遮罩底色
     options.maskBackgroundColor = [UIColor colorWithWhite:0.3 alpha:0.5];
 
@@ -98,9 +98,12 @@
     // 设置menu距离屏幕左右两边的最小间距
     options.menuScreenMinLeftRightMargin = 10;
 
-    // 新增方法 设置menu距离屏幕底部的最小间距
+    // 设置menu距离屏幕底部的最小间距
     options.menuScreenMinBottomMargin = 49;
     
+    // 新增方法 设置自动转屏不消失
+    options.dismissWhenRotationScreen = false;
+
     [XHPopMenu showMenuInView:self.view withView:sender menuItems:self.dataArray withOptions:options];
 }
 
@@ -130,6 +133,10 @@
         self.lastModel = _dataArray.lastObject;
     }
     return _dataArray;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning {

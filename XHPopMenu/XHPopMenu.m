@@ -36,11 +36,12 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     defaultConfiguration.alignment = NSTextAlignmentLeft;
     defaultConfiguration.shadowOfMenu = false;
     defaultConfiguration.hasSeparatorLine = true;
+    defaultConfiguration.dismissWhenRotationScreen = false;
     defaultConfiguration.titleColor = [UIColor whiteColor];
     defaultConfiguration.separatorColor = [UIColor blackColor];
     defaultConfiguration.shadowColor = [UIColor blackColor];
     defaultConfiguration.menuBackgroundColor = [UIColor colorWithWhite:0.2 alpha:1];
-    defaultConfiguration.maskBackgroundColor = [UIColor clearColor];
+    defaultConfiguration.maskBackgroundColor = [UIColor colorWithWhite:0.3 alpha:0.6];
     defaultConfiguration.selectedColor = [UIColor colorWithWhite:0.5 alpha:0.8];
     return defaultConfiguration;
 }
@@ -199,17 +200,27 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 @property (nonatomic, strong, readonly) UITableView *tableView;
 @property (nonatomic, strong, readonly) CAShapeLayer *triangleLayer;
 @property (nonatomic, strong, readonly) UIView *shadowView;
+@property (nonatomic,   weak, readonly) UIView *targetView;
+@property (nonatomic,   weak, readonly) UIView *inView;
+@property (nonatomic, assign, readonly) CGRect targetRect;
+@property (nonatomic, assign) BOOL needExchange;
 
 - (void)dismissPopMenu;
 
 @end
 
 @implementation XHPopMenuView
+
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+}
+
 - (instancetype)initInView:(UIView *)inView withRect:(CGRect)rect menuItems:(NSArray<__kindof XHPopMenuItem *> *)menuItems options:(XHPopMenuConfiguration *)options {
     if (self = [super initWithFrame:[UIScreen mainScreen].bounds]) {
         CGRect vFrame = rect;
         CGPoint centerPoint = CGPointMake(CGRectGetMinX(vFrame) + vFrame.size.width / 2.0, CGRectGetMinY(vFrame) + vFrame.size.height / 2.0);
-
+        _targetRect = rect;
+        _inView = inView;
         [self setupWithFrame:vFrame centerPoint:centerPoint menuItems:menuItems options:options];
     }
     return self;
@@ -218,8 +229,9 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 - (instancetype)initInView:(UIView *)inView withView:(UIView *)view menuItems:(NSArray<__kindof XHPopMenuItem *> *)menuItems options:(XHPopMenuConfiguration *)options {
     if (self = [super initWithFrame:[UIScreen mainScreen].bounds]) {
         CGRect vFrame = [view.superview convertRect:view.frame toView:inView];
-        CGPoint centerPoint = view.center;
-        
+        CGPoint centerPoint = CGPointMake(CGRectGetMinX(vFrame) + vFrame.size.width / 2.0, CGRectGetMinY(vFrame) + vFrame.size.height / 2.0);
+        _targetView = view;
+        _inView = inView;
         [self setupWithFrame:vFrame centerPoint:centerPoint menuItems:menuItems options:options];
     }
     return self;
@@ -255,7 +267,7 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     if (isBounces) {
         tableViewH = self.configuration.menuMaxHeight;
     }
-    
+
     BOOL isDown = tableViewH + triangleHeight + triangleMargin + CGRectGetMaxY(vFrame) < kScreenH - self.configuration.menuScreenMinBottomMargin;
     
     CGFloat triangleX = centerPoint.x;
@@ -300,6 +312,9 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     [self addSubview:_tableView];
     
     if (self.configuration.shadowOfMenu) {
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
+        
         UIView *shadow = [[UIView alloc] init];
         shadow.backgroundColor = [UIColor clearColor];
         shadow.frame = CGRectMake(_startPoint.x, _startPoint.y + triangleHeight, 1, 1);
@@ -320,6 +335,7 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
         
         _shadowView = shadow;
         [self insertSubview:shadow belowSubview:_tableView];
+        [CATransaction commit];
     }
     
     [self drawTriangleLayerIsDown:isDown];
@@ -448,6 +464,9 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 }
 
 - (void)dismissCompletion {
+    self.configuration = nil;
+    self.menuItems = nil;
+    [self.shadowView removeFromSuperview];
     [self.tableView removeFromSuperview];
     [self.triangleLayer removeFromSuperlayer];
     [self removeFromSuperview];
@@ -457,7 +476,7 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 
 @interface XHPopMenu ()
 
-@property (nonatomic, strong) XHPopMenuView *popmenuView;
+@property (nonatomic,   weak) XHPopMenuView *popmenuView;
 @property (nonatomic, assign) BOOL isObserving;
 
 @end
@@ -469,13 +488,6 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     if (options == nil) {
         options = [XHPopMenuConfiguration defaultConfiguration];
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    if (options.menuScreenMinLeftRightMargin == 10 && options.menuScreenMinMargin != 0) {
-        options.menuScreenMinLeftRightMargin = options.menuScreenMinMargin;
-    }
-#pragma clang diagnostic pop
-
     [[self sharedManager] showMenuInView:inView withRect:rect menuItems:menuItems withOptions:options];
 }
 
@@ -487,13 +499,6 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     if (options == nil) {
         options = [XHPopMenuConfiguration defaultConfiguration];
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    if (options.menuScreenMinLeftRightMargin == 10 && options.menuScreenMinMargin != 0) {
-        options.menuScreenMinLeftRightMargin = options.menuScreenMinMargin;
-    }
-#pragma clang diagnostic pop
-    
     [[self sharedManager] showMenuInView:inView withView:view menuItems:menuItems withOptions:options];
 }
 
@@ -526,14 +531,15 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     if (!_isObserving) {
         _isObserving = true;
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(orientationWillChange:)
-                                                     name:UIApplicationWillChangeStatusBarOrientationNotification
+                                                 selector:@selector(orientationDidChange:)
+                                                     name:UIApplicationDidChangeStatusBarOrientationNotification
                                                    object:nil];
     }
     if (!inView) {
         inView = [UIApplication sharedApplication].keyWindow;
     }
-    _popmenuView = [[XHPopMenuView alloc] initInView:inView withRect:rect menuItems:menuItems options:options];
+    XHPopMenuView *popmenuView = [[XHPopMenuView alloc] initInView:inView withRect:rect menuItems:menuItems options:options];
+    _popmenuView = popmenuView;
     [_popmenuView showMenuInView:inView];
 }
 
@@ -546,25 +552,67 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     if (!_isObserving) {
         _isObserving = true;
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(orientationWillChange:)
-                                                     name:UIApplicationWillChangeStatusBarOrientationNotification
+                                                 selector:@selector(orientationDidChange:)
+                                                     name:UIApplicationDidChangeStatusBarOrientationNotification
                                                    object:nil];
     }
     if (!inView) {
         inView = [UIApplication sharedApplication].keyWindow;
     }
-    _popmenuView = [[XHPopMenuView alloc] initInView:inView withView:view menuItems:menuItems options:options];
+    XHPopMenuView *popmenuView = [[XHPopMenuView alloc] initInView:inView withView:view menuItems:menuItems options:options];
+    _popmenuView = popmenuView;
     [_popmenuView showMenuInView:inView];
 }
 
-- (void)orientationWillChange:(NSNotification *)note {
-    [self dismissMenu];
+#pragma mark - orientation
+
+- (void)orientationDidChange:(NSNotification *)note {
+    XHPopMenuConfiguration *options = _popmenuView.configuration;
+
+    if (options.dismissWhenRotationScreen) {
+        [self dismissMenu];
+    } else {
+        NSArray<__kindof XHPopMenuItem *> *menuItems = _popmenuView.menuItems;
+        UIView *inView = _popmenuView.inView;
+
+        if (_popmenuView.targetView) {
+            UIView *withView = _popmenuView.targetView;
+            [self dismissMenuAnimation:NO];
+            
+            // refresh the inView frame
+            [inView layoutIfNeeded];
+            [inView setNeedsDisplay];
+            XHPopMenuAnimationStyle style = options.style;
+            options.style = XHPopMenuAnimationStyleNone;
+            [self showMenuInView:inView withView:withView menuItems:menuItems withOptions:options];
+            options.style = style;
+        } else {
+            CGRect rect = _popmenuView.targetRect;
+            [self dismissMenuAnimation:NO];
+            
+            // refresh the inView frame
+            [inView layoutIfNeeded];
+            [inView setNeedsDisplay];
+            XHPopMenuAnimationStyle style = options.style;
+            options.style = XHPopMenuAnimationStyleNone;
+            [self showMenuInView:inView withRect:rect menuItems:menuItems withOptions:options];
+            options.style = style;
+        }
+    }
 }
 
 - (void)dismissMenu {
+    [self dismissMenuAnimation:YES];
+}
+
+- (void)dismissMenuAnimation:(BOOL)animation {
     if (_popmenuView) {
-        [_popmenuView dismissPopMenu];
-        _popmenuView = nil;
+        if (animation) {
+            [_popmenuView dismissPopMenu];
+        } else {
+            [_popmenuView dismissCompletion];
+            _popmenuView = nil;
+        }
     }
     if (_isObserving) {
         _isObserving = false;
