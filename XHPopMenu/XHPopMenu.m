@@ -618,6 +618,9 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 - (void)dismissMenuAnimation:(BOOL)animation {
     if (_popmenuView) {
         if (animation) {
+            if (_popmenuView.configuration.dismissBlock) {
+                _popmenuView.configuration.dismissBlock();
+            }
             [_popmenuView dismissPopMenu];
         } else {
             [_popmenuView dismissCompletion];
