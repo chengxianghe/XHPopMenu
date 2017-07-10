@@ -87,7 +87,8 @@ typedef NS_ENUM(NSUInteger, XHPopMenuAnimationStyle) {
 @property (nonatomic, strong, nullable) UIColor *maskBackgroundColor; ///< 遮罩颜色
 @property (nonatomic, assign) BOOL dismissWhenRotationScreen; ///< default:true 旋转屏幕时自动消失 注：false的时候会调用inView的layoutIfNeeded
 @property (nonatomic, assign) BOOL revisedMaskWhenRotationScreen; ///< default:false 旋转屏幕过程中，如果设置了mask颜色，会有一块白色的区域闪现，这个属性为true时，在设置蒙层的时候直接宽高都为屏幕宽高中的最大值
-@property (nonatomic,   copy, nullable) void(^dismissBlock)(void); ///<dismiss的时候会执行
+@property (nonatomic, assign) BOOL dismissWhenClickBackground; ///< default:true 是否在点击背景的时候消失
+@property (nonatomic,   copy, nullable) void(^dismissBlock)(void); ///<点击背景dismiss的时候会执行
 
 // MenuItem设置
 @property (nonatomic, assign) CGFloat marginXSpacing; ///< MenuItem左右边距

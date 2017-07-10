@@ -38,6 +38,7 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
     defaultConfiguration.hasSeparatorLine = true;
     defaultConfiguration.dismissWhenRotationScreen = false;
     defaultConfiguration.revisedMaskWhenRotationScreen = false;
+    defaultConfiguration.dismissWhenClickBackground = true;
     defaultConfiguration.titleColor = [UIColor whiteColor];
     defaultConfiguration.separatorColor = [UIColor blackColor];
     defaultConfiguration.shadowColor = [UIColor blackColor];
@@ -379,7 +380,12 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [XHPopMenu dismissMenu];
+    if (self.configuration.dismissWhenClickBackground) {
+        [XHPopMenu dismissMenu];
+        if (self.configuration.dismissBlock) {
+            self.configuration.dismissBlock();
+        }
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -618,9 +624,6 @@ static const CGFloat kXHDefaultAnimateDuration = 0.15;
 - (void)dismissMenuAnimation:(BOOL)animation {
     if (_popmenuView) {
         if (animation) {
-            if (_popmenuView.configuration.dismissBlock) {
-                _popmenuView.configuration.dismissBlock();
-            }
             [_popmenuView dismissPopMenu];
         } else {
             [_popmenuView dismissCompletion];

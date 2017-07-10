@@ -115,8 +115,16 @@
     // 设置menu距离屏幕底部的最小间距
     options.menuScreenMinBottomMargin = 49;
     
-    // 新增方法 设置自动转屏不消失
+    // 设置自动转屏不消失
     options.dismissWhenRotationScreen = false;
+    
+    // 新增方法 设置点击背景消失
+    options.dismissWhenClickBackground = true;
+    
+    // 新增方法 设置点击背景不消失
+    [options setDismissBlock:^{
+        NSLog(@"点击背景自动消失");
+    }];
     
     [XHPopMenu showMenuInView:self.view withView:sender menuItems:self.dataArray withOptions:options];
 }
